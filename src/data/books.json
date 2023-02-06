@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1,
+        "author": "Пушкин Александр Сергеевич",
+        "title": "Капитанская дочка",
+        "genre": "Роман",
+        "tome": null,
+        "readBy": null
+    },
+    {
+        "id": 2,
+        "author": "Игорь Польских",
+        "title": "Человек опередивший время",
+        "genre": "Рассказ",
+        "tome": null,
+        "readBy": null
+    },
+    {
+        "id": 3,
+        "author": "Конкордия Антарова",
+        "title": "Две жизни",
+        "genre": "Роман",
+        "tome": 1,
+        "readBy": null
+    },
+    {
+        "id": 4,
+        "author": "Конкордия Антарова",
+        "title": "Две жизни",
+        "genre": "Роман",
+        "tome": 2,
+        "readBy": null
+    },
+    {
+        "id": 5,
+        "author": "Конкордия Антарова",
+        "title": "Две жизни",
+        "genre": "Роман",
+        "tome": 3,
+        "readBy": null
+    },
+    {
+        "id": 6,
+        "author": "Конкордия Антарова",
+        "title": "Две жизни",
+        "genre": "Роман",
+        "tome": 4,
+        "readBy": null
+    },
+    {
+        "id": 7,
+        "author": "Грегори Дэвид Робертс",
+        "title": "Шантарам",
+        "genre": "Роман",
+        "tome": null,
+        "readBy": null
+    },
+    {
+        "id": 8,
+        "author": "Юлиан Семёнов",
+        "title": "Семнадцать мгновений весны",
+        "genre": "Роман",
+        "tome": null,
+        "readBy": null
+    },
+    {
+        "id": 9,
+        "author": "Михаил Веллер",
+        "title": "Всё о жизни",
+        "genre": "Рассказ",
+        "tome": null,
+        "readBy": null
+    },
+    {
+        "id": 10,
+        "author": "Экхарт Толле",
+        "title": "Новая земля",
+        "genre": "Эзотерика",
+        "tome": null,
+        "readBy": null
+    }
+]
