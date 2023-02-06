@@ -1,14 +1,44 @@
 [
     {
         "id": 1,
-        "name": "Petr"
+        "firstname": "Пётр",
+        "lastname": "Пасин",
+        "phone": "+7 999 999 99 91",
+        "booksOnHand": []
     },
     {
         "id": 2,
-        "name": "Pavel"
+        "firstname": "Павел",
+        "lastname": "Павлов",
+        "phone": "+7 999 999 99 92",
+        "booksOnHand": []
     },
     {
         "id": 3,
-        "name": "Igor"
+        "firstname": "Игорь",
+        "lastname": "Сидоров",
+        "phone": "+7 999 999 99 93",
+        "booksOnHand": []
+    },
+    {
+        "id": 4,
+        "firstname": "Анна",
+        "lastname": "Богатырёва",
+        "phone": "+7 999 999 99 94",
+        "booksOnHand": []
+    },
+    {
+        "id": 5,
+        "firstname": "Светлана",
+        "lastname": "Сидорова",
+        "phone": "+7 999 999 99 95",
+        "booksOnHand": []
+    },
+    {
+        "id": 6,
+        "firstname": "Аманжол",
+        "lastname": "Аманжолов",
+        "phone": "+7 999 999 99 96",
+        "booksOnHand": []
     }
 ]

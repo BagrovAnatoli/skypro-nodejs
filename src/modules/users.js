@@ -6,4 +6,12 @@ const getUsers = () => {
     return fs.readFileSync(filePath);
 }
 
-module.exports = getUsers;
+const getUserById = (id) => {
+    const usersJSON = getUsers()
+    const users = JSON.parse(usersJSON);
+    const user = users.find(u => u.id === id);
+    return JSON.stringify(user);
+}
+
+exports.getUsers = getUsers;
+exports.getUserById = getUserById;
