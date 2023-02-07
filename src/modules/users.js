@@ -7,10 +7,13 @@ const getUsers = () => {
 }
 
 const getUserById = (id) => {
+    const userId = Number(id);
+    console.log(id);
+    console.log(userId);
     const usersJSON = getUsers()
     const users = JSON.parse(usersJSON);
-    const user = users.find(u => u.id === id);
-    return JSON.stringify(user);
+    const user = users.find(u => u.id === userId);
+    return user ? JSON.stringify(user) : "{}";
 }
 
 exports.getUsers = getUsers;
