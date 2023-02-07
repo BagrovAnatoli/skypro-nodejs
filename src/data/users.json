@@ -40,5 +40,12 @@
         "lastname": "Аманжолов",
         "phone": "+7 999 999 99 96",
         "booksOnHand": []
+    },
+    {
+        "firstname": "Алла",
+        "lastname": "Оленёва",
+        "phone": "+7 999 999 99 97",
+        "id": 7,
+        "booksOnHand": []
     }
 ]
