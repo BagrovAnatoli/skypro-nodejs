@@ -7,6 +7,18 @@ const host = '127.0.0.1';
 const server = http.createServer((request, response) => {
     const addr = new URL(request.url, 'http://127.0.0.1');
 
+    if (request.method === 'POST') {
+        let body = '';
+        request.on('data', chunk => {
+            body += chunk.toString(); // convert Buffer to string
+        });
+        request.on('end', () => {
+            console.log(body);
+            response.end('ok');
+        });
+        return;
+    }
+
     const regex = /\/users\/(?<id>\d{1,})/;
     const found = request.url.match(regex);
     const foundId = found?.groups.id;
