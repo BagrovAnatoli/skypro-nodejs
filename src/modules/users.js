@@ -25,12 +25,6 @@ const getUserById = (id) => {
     return user ? JSON.stringify(user) : "{}";
 }
 
-const urlMatchUserId = (url) => {
-    const regex = /\/users\/(?<id>\d{1,})/;
-    const found = url.match(regex);
-    return found?.groups.id;
-}
-
 const addUser = (bodyJSON) => {
     const newUserInfo = JSON.parse(bodyJSON);
     newUserInfo.id = getLastUserId() + 1;
@@ -72,6 +66,5 @@ const editUser = (bodyJSON) => {
 
 exports.getUsers = getUsers;
 exports.getUserById = getUserById;
-exports.urlMatchUserId = urlMatchUserId;
 exports.addUser = addUser;
 exports.editUser = editUser;

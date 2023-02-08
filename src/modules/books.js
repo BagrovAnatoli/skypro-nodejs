@@ -26,12 +26,6 @@ const getBookById = (id) => {
     return book ? JSON.stringify(book) : "{}";
 }
 
-const urlMatchBookId = (url) => {
-    const regex = /\/books\/(?<id>\d{1,})/;
-    const found = url.match(regex);
-    return found?.groups.id;
-}
-
 const addBook = (bodyJSON) => {
     const newBookInfo = JSON.parse(bodyJSON);
     newBookInfo.id = getLastBookId() + 1;
@@ -118,10 +112,14 @@ const returnBook = (bodyJSON) => {
     editUser(JSON.stringify(user));
 }
 
+const deleteBook = () => {
+    
+}
+
 exports.getBooks = getBooks;
 exports.getBookById = getBookById;
-exports.urlMatchBookId = urlMatchBookId;
 exports.addBook = addBook;
 exports.editBook = editBook;
 exports.takeBook = takeBook;
 exports.returnBook = returnBook;
+exports.deleteBook = deleteBook;

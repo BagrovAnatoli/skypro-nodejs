@@ -1,6 +1,7 @@
 const http = require('http');
-const { getUsers, getUserById, urlMatchUserId, addUser, editUser } = require('./modules/users');
-const { getBooks, getBookById, urlMatchBookId, addBook, editBook, takeBook, returnBook } = require('./modules/books');
+const { urlMatchId } = require('./modules/urlMatchId');
+const { getUsers, getUserById, addUser, editUser } = require('./modules/users');
+const { getBooks, getBookById, addBook, editBook, takeBook, returnBook } = require('./modules/books');
 
 const port = 3003;
 const host = '127.0.0.1';
@@ -66,44 +67,45 @@ const server = http.createServer((request, response) => {
         return;
     }
 
+    if (request.method === 'GET') {
+        const foundUserId = urlMatchId(request.url, 'users');
+        const foundBookId = urlMatchId(request.url, 'books');
 
-    const foundUserId = urlMatchUserId(request.url);
-    const foundBookId = urlMatchBookId(request.url);
+        if (request.url === '/users') {
+            response.statusCode = 200;
+            response.statusMessage = "OK";
+            response.setHeader("Content-Type", "application/json; charset=utf-8");
+            response.write(getUsers());
+            response.end();
+            return;
+        }
 
-    if (request.url === '/users') {
-        response.statusCode = 200;
-        response.statusMessage = "OK";
-        response.setHeader("Content-Type", "application/json; charset=utf-8");
-        response.write(getUsers());
-        response.end();
-        return;
-    }
+        if (request.url === '/books') {
+            response.statusCode = 200;
+            response.statusMessage = "OK";
+            response.setHeader("Content-Type", "application/json; charset=utf-8");
+            response.write(getBooks());
+            response.end();
+            return;
+        }
 
-    if (request.url === '/books') {
-        response.statusCode = 200;
-        response.statusMessage = "OK";
-        response.setHeader("Content-Type", "application/json; charset=utf-8");
-        response.write(getBooks());
-        response.end();
-        return;
-    }
+        if (foundUserId) {
+            response.statusCode = 200;
+            response.statusMessage = "OK";
+            response.setHeader("Content-Type", "application/json; charset=utf-8");
+            response.write(getUserById(foundUserId), "utf8");
+            response.end();
+            return;
+        }
 
-    if (foundUserId) {
-        response.statusCode = 200;
-        response.statusMessage = "OK";
-        response.setHeader("Content-Type", "application/json; charset=utf-8");
-        response.write(getUserById(foundUserId), "utf8");
-        response.end();
-        return;
-    }
-
-    if (foundBookId) {
-        response.statusCode = 200;
-        response.statusMessage = "OK";
-        response.setHeader("Content-Type", "application/json; charset=utf-8");
-        response.write(getBookById(foundBookId), "utf8");
-        response.end();
-        return;
+        if (foundBookId) {
+            response.statusCode = 200;
+            response.statusMessage = "OK";
+            response.setHeader("Content-Type", "application/json; charset=utf-8");
+            response.write(getBookById(foundBookId), "utf8");
+            response.end();
+            return;
+        }
     }
 
     response.statusCode = 500;
