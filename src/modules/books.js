@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { getLastBookId, incrementBookId } = require('./meta');
+const { getUserById, editUser } = require('./users');
 
 const filePath = path.join(__dirname, '../data/books.json');
 
@@ -72,8 +73,55 @@ const editBook = (bodyJSON) => {
     writeBooksFile(updatedBooks);
 }
 
+const takeBook = (bodyJSON) => {
+    // {
+    //     userId: 1,
+    //     bookId: 1,
+    //     dateReturn: "20.02.2023"
+    // }
+    const takingInfo = JSON.parse(bodyJSON);
+    const { bookId, userId, dateReturn } = takingInfo;
+
+    const bookJSON = getBookById(bookId);
+    const book = JSON.parse(bookJSON);
+    if (book.readBy) {return;}
+    book.readBy = userId;
+    editBook(JSON.stringify(book));
+
+    const userJSON = getUserById(userId);
+    const user = JSON.parse(userJSON);
+    user.booksOnHand.push({
+        id: bookId,
+        dateReturn
+    });
+    editUser(JSON.stringify(user));
+}
+
+const returnBook = (bodyJSON) => {
+    // {
+    //     bookId: 1,
+    // }
+    const { bookId } = JSON.parse(bodyJSON);
+
+    const bookJSON = getBookById(bookId);
+    const book = JSON.parse(bookJSON);
+    const userId = book.readBy;
+    book.readBy = null;
+    editBook(JSON.stringify(book));
+
+    const userJSON = getUserById(userId);
+    const user = JSON.parse(userJSON);
+    const newBooksOnHand = user.booksOnHand.filter((item) => {
+        return item.id !== bookId;
+    });
+    user.booksOnHand = newBooksOnHand;
+    editUser(JSON.stringify(user));
+}
+
 exports.getBooks = getBooks;
 exports.getBookById = getBookById;
 exports.urlMatchBookId = urlMatchBookId;
 exports.addBook = addBook;
 exports.editBook = editBook;
+exports.takeBook = takeBook;
+exports.returnBook = returnBook;

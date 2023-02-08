@@ -1,6 +1,6 @@
 const http = require('http');
 const { getUsers, getUserById, urlMatchUserId, addUser, editUser } = require('./modules/users');
-const { getBooks, getBookById, urlMatchBookId, addBook, editBook } = require('./modules/books');
+const { getBooks, getBookById, urlMatchBookId, addBook, editBook, takeBook, returnBook } = require('./modules/books');
 
 const port = 3003;
 const host = '127.0.0.1';
@@ -28,6 +28,14 @@ const bodyPUTProcessing = (body, url) => {
     if (url === '/edit-book') {
         console.log('Редактировать книгу');
         editBook(body);
+    }
+    if (url === '/take-book') {
+        console.log('Взять книгу');
+        takeBook(body);
+    }
+    if (url === '/return-book') {
+        console.log('Вернуть книгу');
+        returnBook(body);
     }
 }
 
