@@ -46,7 +46,32 @@ const addUser = (bodyJSON) => {
     incrementUserId();
 }
 
+const editUser = (bodyJSON) => {
+    const newUserInfo = JSON.parse(bodyJSON);
+    const userId = newUserInfo.id;
+    // прочитать файл
+    const usersJSON = getUsers();
+    // распарсить массив
+    const users = JSON.parse(usersJSON);
+    // найти пользователя и изменить его данные
+    const updatedUsers = users.map((user) => {
+        if (user.id === userId) {
+            return {
+                id: userId,
+                firstname: newUserInfo.firstname,
+                lastname: newUserInfo.lastname,
+                phone: newUserInfo.phone,
+                booksOnHand: newUserInfo.booksOnHand
+            };
+        }
+        return user;
+    });
+    // записать в файл
+    writeUsersFile(updatedUsers);
+}
+
 exports.getUsers = getUsers;
 exports.getUserById = getUserById;
 exports.urlMatchUserId = urlMatchUserId;
 exports.addUser = addUser;
+exports.editUser = editUser;

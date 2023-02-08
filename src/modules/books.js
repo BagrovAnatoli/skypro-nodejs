@@ -46,7 +46,34 @@ const addBook = (bodyJSON) => {
     incrementBookId();
 }
 
+
+const editBook = (bodyJSON) => {
+    const newBookInfo = JSON.parse(bodyJSON);
+    const bookId = newBookInfo.id;
+    // прочитать файл
+    const booksJSON = getBooks();
+    // распарсить массив
+    const books = JSON.parse(booksJSON);
+    // найти книгу и изменить её данные
+    const updatedBooks = books.map((book) => {
+        if (book.id === bookId) {
+            return {
+                id: bookId,
+                author: newBookInfo.author,
+                title: newBookInfo.title,
+                genre: newBookInfo.genre,
+                tome: newBookInfo.tome,
+                readBy: newBookInfo.readBy,
+            };
+        }
+        return book;
+    });
+    // записать в файл
+    writeBooksFile(updatedBooks);
+}
+
 exports.getBooks = getBooks;
 exports.getBookById = getBookById;
 exports.urlMatchBookId = urlMatchBookId;
 exports.addBook = addBook;
+exports.editBook = editBook;

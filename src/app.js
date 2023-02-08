@@ -1,6 +1,6 @@
 const http = require('http');
-const { getUsers, getUserById, urlMatchUserId, addUser } = require('./modules/users');
-const { getBooks, getBookById, urlMatchBookId, addBook } = require('./modules/books');
+const { getUsers, getUserById, urlMatchUserId, addUser, editUser } = require('./modules/users');
+const { getBooks, getBookById, urlMatchBookId, addBook, editBook } = require('./modules/books');
 
 const port = 3003;
 const host = '127.0.0.1';
@@ -18,6 +18,19 @@ const bodyPOSTProcessing = (body, url) => {
     }
 }
 
+const bodyPUTProcessing = (body, url) => {
+    console.log(url);
+    console.log(body);
+    if (url === '/edit-user') {
+        console.log('Редактировать пользователя');
+        editUser(body);
+    }
+    if (url === '/edit-book') {
+        console.log('Редактировать книгу');
+        editBook(body);
+    }
+}
+
 const server = http.createServer((request, response) => {
     const addr = new URL(request.url, 'http://127.0.0.1');
 
@@ -32,6 +45,19 @@ const server = http.createServer((request, response) => {
         });
         return;
     }
+
+    if (request.method === 'PUT') {
+        let body = '';
+        request.on('data', chunk => {
+            body += chunk.toString();
+        });
+        request.on('end', () => {
+            bodyPUTProcessing(body, request.url);
+            response.end('ok');
+        });
+        return;
+    }
+
 
     const foundUserId = urlMatchUserId(request.url);
     const foundBookId = urlMatchBookId(request.url);

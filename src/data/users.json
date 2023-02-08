@@ -42,10 +42,10 @@
         "booksOnHand": []
     },
     {
+        "id": 7,
         "firstname": "Алла",
         "lastname": "Оленёва",
-        "phone": "+7 999 999 99 97",
-        "id": 7,
+        "phone": "+7 999 999 00 97",
         "booksOnHand": []
     }
 ]
