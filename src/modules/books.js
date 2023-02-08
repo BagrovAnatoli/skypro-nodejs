@@ -91,6 +91,16 @@ const takeBook = (bodyJSON) => {
     editUser(JSON.stringify(user));
 }
 
+const clearBookFromUser = (bookId, userId) => {
+    const userJSON = getUserById(userId);
+    const user = JSON.parse(userJSON);
+    const newBooksOnHand = user.booksOnHand.filter((item) => {
+        return item.id !== bookId;
+    });
+    user.booksOnHand = newBooksOnHand;
+    editUser(JSON.stringify(user));
+}
+
 const returnBook = (bodyJSON) => {
     // {
     //     bookId: 1,
@@ -103,17 +113,23 @@ const returnBook = (bodyJSON) => {
     book.readBy = null;
     editBook(JSON.stringify(book));
 
-    const userJSON = getUserById(userId);
-    const user = JSON.parse(userJSON);
-    const newBooksOnHand = user.booksOnHand.filter((item) => {
-        return item.id !== bookId;
-    });
-    user.booksOnHand = newBooksOnHand;
-    editUser(JSON.stringify(user));
+    clearBookFromUser(bookId, userId);
 }
 
-const deleteBook = () => {
-    
+const deleteBook = (id) => {
+    const bookId = Number(id);
+    const booksJSON = getBooks();
+    const books = JSON.parse(booksJSON);
+    const updatedBooksList = books.filter((book) => {
+        if (book.id === bookId) {
+            if (book.readBy) {
+                clearBookFromUser(bookId, book.readBy);
+            }
+            return false;
+        }
+        return true;
+    });
+    writeBooksFile(updatedBooksList);
 }
 
 exports.getBooks = getBooks;

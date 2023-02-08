@@ -78,13 +78,5 @@
         "genre": "Эзотерика",
         "tome": null,
         "readBy": null
-    },
-    {
-        "id": 11,
-        "author": "Вадим Кожинов",
-        "title": "Тютчев. Жизнь замечательных людей",
-        "genre": "Биография",
-        "tome": null,
-        "readBy": null
     }
 ]

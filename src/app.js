@@ -1,7 +1,7 @@
 const http = require('http');
 const { urlMatchId } = require('./modules/urlMatchId');
 const { getUsers, getUserById, addUser, editUser } = require('./modules/users');
-const { getBooks, getBookById, addBook, editBook, takeBook, returnBook } = require('./modules/books');
+const { getBooks, getBookById, addBook, editBook, takeBook, returnBook, deleteBook } = require('./modules/books');
 
 const port = 3003;
 const host = '127.0.0.1';
@@ -65,6 +65,13 @@ const server = http.createServer((request, response) => {
             response.end('ok');
         });
         return;
+    }
+
+    if (request.method === 'DELETE') {
+        const foundBookId = urlMatchId(request.url, 'delete-books');
+        if (foundBookId) {
+            deleteBook(foundBookId);
+        }
     }
 
     if (request.method === 'GET') {
