@@ -64,7 +64,21 @@ const editUser = (bodyJSON) => {
     writeUsersFile(updatedUsers);
 }
 
+const deleteUser = (id) => {
+    const userId = Number(id);
+    const usersJSON = getUsers();
+    const userss = JSON.parse(usersJSON);
+    const updatedUsersList = users.filter((user) => {
+        if (user.id === userId && user.booksOnHand.length === 0) {
+            return false;
+        }
+        return true;
+    });
+    writeBooksFile(updatedBooksList);
+}
+
 exports.getUsers = getUsers;
 exports.getUserById = getUserById;
 exports.addUser = addUser;
 exports.editUser = editUser;
+exports.deleteUser = deleteUser;

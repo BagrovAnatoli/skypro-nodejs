@@ -1,6 +1,6 @@
 const http = require('http');
 const { urlMatchId } = require('./modules/urlMatchId');
-const { getUsers, getUserById, addUser, editUser } = require('./modules/users');
+const { getUsers, getUserById, addUser, editUser, deleteUser } = require('./modules/users');
 const { getBooks, getBookById, addBook, editBook, takeBook, returnBook, deleteBook } = require('./modules/books');
 
 const port = 3003;
@@ -68,10 +68,15 @@ const server = http.createServer((request, response) => {
     }
 
     if (request.method === 'DELETE') {
-        const foundBookId = urlMatchId(request.url, 'delete-books');
+        const foundBookId = urlMatchId(request.url, 'delete-book');
+        const foundUserId = urlMatchId(request.url, 'delete-user');
         if (foundBookId) {
             deleteBook(foundBookId);
         }
+        if (foundUserId) {
+            deleteUser(foundUserId);
+        }
+        response.end('ok');
     }
 
     if (request.method === 'GET') {
@@ -113,13 +118,13 @@ const server = http.createServer((request, response) => {
             response.end();
             return;
         }
-    }
 
-    response.statusCode = 500;
-    response.statusMessage = "Internal Server Eror";
-    response.header = "Content-Type: text/plain";
-    response.write(" ");
-    response.end();
+        response.statusCode = 500;
+        response.statusMessage = "Internal Server Eror";
+        response.header = "Content-Type: text/plain";
+        response.write(" ");
+        response.end();
+    }
 
 });
 
