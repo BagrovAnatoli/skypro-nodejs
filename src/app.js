@@ -1,8 +1,9 @@
 const http = require('http');
 const getUsers = require('./modules/users');
+require('dotenv').config();
 
-const port = 3003;
-const host = '127.0.0.1';
+const port = process.env.PORT;
+const host = process.env.HOST;
 
 const getUsersResponse = (usersParam) => {
     if (!usersParam) {
@@ -37,7 +38,7 @@ const getHelloResponse = (helloParam) => {
 }
 
 const server = http.createServer((request, response) => {
-    const addr = new URL(request.url, 'http://127.0.0.1');
+    const addr = new URL(request.url, host);
 
     if (addr.pathname === '/') {
         if(addr.searchParams.get('users') !== null){
